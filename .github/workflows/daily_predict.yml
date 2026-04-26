@@ -20,9 +20,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r requirements.txt
+          # 1. 先安装 CPU 版 Torch (约 150MB，比普通版快得多)
           pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
-
+          # 2. 安装其他所有依赖
+          pip install -r requirements.txt
       - name: Run Prediction Script
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
