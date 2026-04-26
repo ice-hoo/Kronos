@@ -28,4 +28,7 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}      # 必须加这行
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}      # 必须加这行
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }} # 必须加这行
         run: python daily_cron.py
