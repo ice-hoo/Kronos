@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install pandas numpy matplotlib requests akshare torch --extra-index-url https://download.pytorch.org/whl/cpu
+          pip install pandas numpy matplotlib requests akshare huggingface_hub torch --extra-index-url https://download.pytorch.org/whl/cpu
           # 注意：这里安装的是 CPU 版 torch，体积小且运行快
 
       - name: Run Prediction Script
