@@ -1,0 +1,30 @@
+name: Daily Kronos Prediction
+
+on:
+  schedule:
+    # 每天北京时间 16:00 运行 (UTC 8:00)
+    - cron: '0 8 * * *'
+  workflow_dispatch: # 允许手动点击运行
+
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install pandas numpy matplotlib requests akshare torch --extra-index-url https://download.pytorch.org/whl/cpu
+          # 注意：这里安装的是 CPU 版 torch，体积小且运行快
+
+      - name: Run Prediction Script
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python daily_cron.py
