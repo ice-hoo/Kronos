@@ -107,7 +107,7 @@ def run_prediction(data_path):
     change = ((end_p / start_p) - 1) * 100
 
     msg = (f"📊 *Kronos 上证指数日线预测*\n"
-           f"📅 截止日期：{df['timestamps'].iloc[-1].split()[0]}\n"
+           f"📅 截止日期：{pd.to_datetime(df['timestamps'].iloc[-1]).date()}\n"
            f"🔮 预测长度：未来 30 个周期\n"
            f"📈 预估末端涨跌幅：{change:+.2f}%")
     
