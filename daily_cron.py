@@ -43,13 +43,15 @@ def send_to_email(photo_path, text):
     msg = MIMEMultipart()
     msg['Subject'] = f"A-share 预测日报 - {pd.Timestamp.now().strftime('%Y-%m-%d')}"
     msg['From'] = EMAIL_USER
-    msg['To'] = EMAIL_RECEIVER
+    # --- 在函数外部或内部处理一下变量 ---
+    # 将 "a@qq.com, b@qq.com" 变成 ["a@qq.com", "b@qq.com"]    
+    receiver_list = [addr.strip() for addr in EMAIL_RECEIVER.split(',')]
+    msg['To'] = ", ".join(receiver_list)
     msg.attach(MIMEText(text, 'plain'))
     
     with open(photo_path, 'rb') as f:
         image = MIMEImage(f.read(), name=os.path.basename(photo_path))
         msg.attach(image)
-        
     try:
         with smtplib.SMTP_SSL("smtp.qq.com", 465) as server:
             server.login(EMAIL_USER, EMAIL_PASS)
